@@ -1,0 +1,227 @@
+/* transition: 300ms; -> change color wth delate */
+
+* {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  box-sizing: content-box;
+}
+
+/* background-color: rgb(98, 97, 95); */
+
+body {
+  text-align: center;
+  background-color: white;
+  flex-wrap: wrap;
+}
+
+#header {
+  height: 5%;
+  width: 100%;
+  background-color: white;
+  display: block;
+}
+
+#single-layout {
+  display: flex;
+  justify-content: center;
+  /* opacity: .8; */
+  height: 30vw;
+  margin: 0;
+}
+
+#single-layout img {
+  object-fit: cover;
+  width: 100vw;
+}
+
+.input-search {
+  display: block;
+  padding: 0px;
+  text-align: center;
+  width: 100vw;
+  margin-top: 30px;
+  padding-bottom: 50px;
+}
+
+.message-div {
+  margin-bottom: 20px;
+  /* border: 1px solid rgb(98, 97, 95); */
+  text-align: center;
+}
+
+.message-div-superpower {
+
+}
+
+h1 {
+  text-align: center;
+}
+
+.card {
+  display: inline-grid;
+  text-align: center;
+  border: 2px solid black;
+  border-radius: 2%;
+}
+.card {
+  /* flex-wrap: wrap;
+
+  max-width: 100%;
+  padding: 0, 20px; */
+
+  /* text-align: center;
+  border: grey solid 1px;
+  padding: 1rem;
+  width: 15rem;
+  height: 25rem;
+  display: inline-grid;
+  margin: 1rem 2rem;
+  box-shadow: 3px 4px #e04b52
+} */
+}
+
+
+.card li {
+  list-style: none;
+  padding: 0 5px;
+  text-align: center;
+}
+
+.image-card {
+width: auto;
+  /* width: 300px; */
+  border: 1px solid #00000020;
+  border-radius: 2px;
+  text-align: left;
+  background-color: white;
+}
+
+.image {
+  width: 300px;
+  /* border: 1px solid black; */
+}
+
+/* #saved-card {
+  border-top: 5px solid rgb(98, 97, 95);
+  height: 30%;
+} */
+
+.likes-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+}
+
+.likes {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.like-button {
+  color: rgb(255, 127, 80);
+  font-size: 1.5rem;
+  border: none;
+  background: none;
+  transition: color 300ms;
+  cursor: pointer;
+}
+
+.like-button:hover {
+  color: rgb(241, 71, 19);
+}
+
+.like-button:active {
+  color: rgb(253, 159, 124);
+}
+
+.like-button:focus {
+  outline: none;
+}
+
+.comments {
+  list-style: none;
+  margin-left: 0;
+  padding-left: 10px;
+  font-size: 0.85rem;
+}
+
+.comments li {
+  margin: 2px 0;
+  letter-spacing: 0.2px;
+}
+
+.comment-form {
+  width: 100%;
+  border-top: 1px solid #00000020;
+ padding: 10px 0;
+  margin-top: 10px;
+}
+
+.comment-input {
+  width: 83%;
+  border: none;
+  font-size: 0.8rem;
+}
+
+.comment-input:focus {
+  outline: none;
+}
+
+.comment-button {
+  /* border: none; */
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 300ms;
+}
+
+.comment-button:hover {
+  color: rgb(37, 68, 245);
+}
+
+.comment-button:active {
+  color: rgb(127, 146, 250);
+}
+
+.comment-button:focus {
+  outline: none;
+}
+
+.btn-search {
+  position: relative;
+  background-color: #8c1117;
+  border-radius: 5px;
+  /* height: 1rem; */
+  width: max-content;
+  color: whitesmoke;
+  font-size: 18px;
+  justify-self: center;
+  font: 1em sans-serif;
+  font-weight: 100;
+  font-size: small;
+}
+
+.btn-save, .btn-delete {
+
+  position: relative;
+  background-color: #8c1117;
+  border-radius: 5px;
+  /* height: 1rem; */
+  width: 100%;
+  color: whitesmoke;
+  font-size: 18px;
+  justify-self: center;
+  font: 1em sans-serif;
+  font-weight: 100;
+  font-size: small;
+
+}
+
+h2 {
+  font-size: x-large;
+  color: #8c1117;
+font-weight: 300;
+font-style: italic;
+}
+
