@@ -29,7 +29,6 @@ const helloMessage = document.querySelector('.hello-msg');
 const notFindMessage = document.querySelector('.not-find-msg');
 const deleteMessage = document.querySelector('.good-bye');
 
-//--img
 const img = document.createElement('img');
 img.classList.add('image');
 
@@ -84,7 +83,7 @@ function displayMessage(content, gifSrc) {
 // }
 
 //---------------------------------
-// Make searching div
+// Search div
 //-------------------------------
 
 function makeDivForSearching(userInput) {
@@ -307,6 +306,7 @@ function renderHero(hero) {
   commentsUl.classList.add('info-ul');
 
   hero.comments.forEach((comment) => {
+    console.log(comment.content)
     const commentLi = document.createElement('li');
     commentLi.innerText = comment.content;
     commentsUl.append(commentLi);
@@ -341,7 +341,7 @@ function renderHero(hero) {
         Accept: 'application/json',
       },
       body: JSON.stringify({
-        content: newComment,
+        content: newComment.content,
         heroId: hero.id,
       }),
     })
@@ -350,7 +350,6 @@ function renderHero(hero) {
         console.log('there was an error posting the data');
         console.error(error);
       });
-
     const li = document.createElement('li');
     li.innerText = newComment.content;
     commentsUl.append(li);

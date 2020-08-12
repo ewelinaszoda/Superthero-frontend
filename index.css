@@ -34,6 +34,10 @@ body {
   width: 100vw;
 }
 
+.search-div {
+  margin-top: 500px;
+  }
+
 .input-search {
   display: block;
   padding: 0px;
@@ -43,6 +47,45 @@ body {
   padding-bottom: 50px;
 }
 
+.input {
+  padding: 20px;
+  border-radius: 40px;
+  width: 20vw;
+  min-width: fit-content;
+  font-size: medium;
+  min-font-size: inherit;
+}
+
+.btn-search {
+  position: relative;
+  background-color: #8c1117;
+  border-radius: 5px;
+  /* height: 1rem; */
+  width: max-content;
+  color: whitesmoke;
+  font-size: 18px;
+  justify-self: center;
+  font: 1em sans-serif;
+  font-weight: 100;
+  font-size: small;
+}
+
+.btn-save, .btn-delete {
+
+  position: relative;
+  background-color: #8c1117;
+  border-radius: 3px;
+  padding: 1em 2.1em 1.1em;
+  /* height: 1rem; */
+  width: 100%;
+  color:#fbdedb;;
+  font-size: 18px;
+  justify-self: center;
+  font: 1em sans-serif;
+  font-weight: 100;
+  font-size: small;
+
+}
 .message-div {
   margin-bottom: 20px;
   /* border: 1px solid rgb(98, 97, 95); */
@@ -63,23 +106,6 @@ h1 {
   border: 2px solid black;
   border-radius: 2%;
 }
-.card {
-  /* flex-wrap: wrap;
-
-  max-width: 100%;
-  padding: 0, 20px; */
-
-  /* text-align: center;
-  border: grey solid 1px;
-  padding: 1rem;
-  width: 15rem;
-  height: 25rem;
-  display: inline-grid;
-  margin: 1rem 2rem;
-  box-shadow: 3px 4px #e04b52
-} */
-}
-
 
 .card li {
   list-style: none;
@@ -188,40 +214,9 @@ width: auto;
   outline: none;
 }
 
-.btn-search {
-  position: relative;
-  background-color: #8c1117;
-  border-radius: 5px;
-  /* height: 1rem; */
-  width: max-content;
-  color: whitesmoke;
-  font-size: 18px;
-  justify-self: center;
-  font: 1em sans-serif;
-  font-weight: 100;
-  font-size: small;
-}
-
-.btn-save, .btn-delete {
-
-  position: relative;
-  background-color: #8c1117;
-  border-radius: 5px;
-  /* height: 1rem; */
-  width: 100%;
-  color: whitesmoke;
-  font-size: 18px;
-  justify-self: center;
-  font: 1em sans-serif;
-  font-weight: 100;
-  font-size: small;
-
-}
-
 h2 {
   font-size: x-large;
   color: #8c1117;
 font-weight: 300;
 font-style: italic;
 }
-
