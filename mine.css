@@ -1,0 +1,126 @@
+.search-div {
+  margin-top: 500px;
+  }
+
+.input-search {
+  display: block;
+  padding: 0px;
+  text-align: center;
+  width: 100vw;
+  margin-top: 30px;
+  padding-bottom: 50px;
+}
+
+.input {
+  padding: 10px;
+  border-radius: 40px;
+  width: 20vw;
+  min-width: fit-content;
+  font-size: medium;
+  outline: none;
+}
+
+.btn-search {
+  position: relative;
+  background-color: #8c1117;
+  border-radius: 5px;
+  height: 30px;
+  width: max-content;
+  min-width: fit-content;
+  color: whitesmoke;
+  font-size: 18px;
+  justify-self: center;
+  font: 1em sans-serif;
+  font-weight: 100;
+  font-size: medium;
+  cursor: pointer;
+
+}
+
+
+
+.search-div {
+  margin-top: 500px;
+  }
+
+.input-search {
+  display: block;
+  padding: 0px;
+  text-align: center;
+  width: 100vw;
+  margin-top: 30px;
+  padding-bottom: 50px;
+}
+
+.input {
+  padding: 10px;
+  border-radius: 40px;
+  width: 20vw;
+  min-width: fit-content;
+  font-size: medium;
+  outline: none;
+}
+
+.btn-search {
+  position: relative;
+  background-color: #8c1117;
+  border-radius: 5px;
+  height: 30px;
+  width: max-content;
+  min-width: fit-content;
+  color: whitesmoke;
+  font-size: 18px;
+  justify-self: center;
+  font: 1em sans-serif;
+  font-weight: 100;
+  font-size: medium;
+  cursor: pointer;
+
+}
+
+.btn-save {
+  background-color: #8c1117 !important;
+}
+
+.btn-save, .btn-delete {
+  position: relative;
+  background-color: #8c1117;
+  border-radius: 10px;
+  padding: 1em 2.1em 1.1em;
+  /* height: 1rem; */
+  width: 100%;
+  color:#fbdedb;;
+  font-size: 18px;
+  justify-self: center;
+  font: 1em sans-serif;
+  font-weight: 100;
+  -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s;
+    font-family: sans-serif;
+    font-weight: 800;
+    font-size: .85em;
+    text-transform: uppercase;
+    text-align: center;
+    text-decoration: none;
+    -webkit-box-shadow: 0em -0.3rem 0em rgba(0, 0, 0, 0.1) inset;
+    -moz-box-shadow: 0em -0.3rem 0em rgba(0, 0, 0, 0.1) inset;
+    box-shadow: 0em -0.3rem 0em rgba(0, 0, 0, 0.1) inset;
+    cursor: pointer;
+}
+
+.btn-save:hover, .btn-save:focus {
+  opacity: 0.9;}
+  
+  .btn-delete:hover, .btn-delete:focus {
+  opacity: 0.9;
+}
+
+.btn-save.block, .btn-delete.block {
+  display: block !important;
+}
+
+const noSaveButton = document.createElement('button');
+noSaveButton.classList.add('btn-save');
+noSaveButton.innerText = 'No save Card';
