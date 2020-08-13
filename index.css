@@ -273,10 +273,15 @@ h1 {
     /* border: 1px solid black; */
   }
 
-  #saved-card {
-  display: flex; 
-  }
-
   #saved-container {
     display: flex; 
+    padding: 20px; 
+    flex-direction: column;
+    justify-content: space-around;
+    flex-wrap: wrap;
+
+  }
+  
+  .saved-card {
+    flex: 1; 
   }

@@ -23,6 +23,7 @@
 // 5. After deleted the card, the rest of saved cards should appears on the page 
 
 // 6.Styling
+// - saved card in the row
 
 //-----------------------------
 // const
@@ -80,7 +81,7 @@ const gif = document.createElement('img');
 
 const savedCardSuperhero = document.createElement('div');
 savedCardSuperhero.classList.add('card');
-savedCardSuperhero.classList.add('saved-cards');
+savedCardSuperhero.classList.add('saved-card');
 
 savedCardContainer.append(savedCardSuperhero);
 
@@ -249,7 +250,6 @@ function makeCardSuperhero(superhero) {
   img.disabled = true;
 }
 
-
 function getSavedCard() {
   return fetch(BASE_URL + '/heros')
     .then((response) => response.json())
@@ -261,11 +261,10 @@ function getSavedCard() {
 }
 
 function renderHero(hero) {
-  //--h1
+
   const h1 = document.createElement('h1');
   h1.innerText = hero.name;
 
-  //--img
   const img = document.createElement('img');
   img.classList.add('image');
   img.src = hero.img;
@@ -305,7 +304,7 @@ function renderHero(hero) {
   likeDiv.append(span, likeButton);
 
   likeButton.addEventListener('click', function (event) {
-    // debugger;
+
     // find another way to display that messages!!!!!!!!!!!
     if ((likeMessage.style.display = 'none')) {
       likeMessage.style.display = 'flex';
@@ -378,8 +377,6 @@ function renderHero(hero) {
 
   });
 
-
-
   const commentButton = document.createElement('button');
   commentButton.classList.add('comment-button');
   commentButton.innerText = 'Post';
@@ -410,7 +407,6 @@ function renderHero(hero) {
       likeMessage.style.display = 'none';
       helloMessage.style.display = 'none';
     }
-
   });
 }
 
