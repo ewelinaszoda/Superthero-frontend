@@ -38,16 +38,18 @@ const proxyURL = 'https://cors-anywhere.herokuapp.com/';
 const br = document.createElement('br');
 const hr = document.createElement('hr');
 
+const currentlyHeros = []
+
 const header = document.querySelector('#header');
 const searchDiv = document.querySelector('#search-div');
 const messagesDiv = document.querySelector('#messages-div');
 const card = document.querySelector('#card');
+
 const savedCardDiv = document.querySelector('#saved-cards')
 const savedCardTitle = document.createElement('div');
 savedCardTitle.id = '#saved-title'
 const savedCardContainer = document.createElement('div');
-savedCardTitle.id = '#saved-container'
-
+savedCardContainer.id = '#saved-container'
 savedCardDiv.append(hr, savedCardTitle, savedCardContainer)
 
 const h2 = document.createElement('h2');
@@ -57,12 +59,11 @@ savedCardTitle.append(h2);
 const superpowerDivMessage = document.createElement('div');
 superpowerDivMessage.classList.add('message-div-superpower');
 
-const likeMessage = document.querySelector('.like-msg');
-const saveMessage = document.querySelector('.saved-msg');
-
-const powerMessage = document.querySelector('.powerstarts-msg');
 const helloMessage = document.querySelector('.hello-msg');
 const notFindMessage = document.querySelector('.not-find-msg');
+const powerMessage = document.querySelector('.powerstarts-msg');
+const saveMessage = document.querySelector('.saved-msg');
+const likeMessage = document.querySelector('.like-msg');
 const deleteMessage = document.querySelector('.good-bye');
 
 const img = document.createElement('img');
@@ -96,12 +97,25 @@ saveButton.innerText = 'Save Card';
 // !!!! NEEDS TO BE FIXED PLUS CONDITIONAL IF THAT MESSAGE DISPLAY NONE AND SO ON!!!!!!
 // gif.src = "https://giphy.com/gifs/reaction-mood-57ZvMMkuBIVMlU88Yh"
 
-function displayMessage(content, gifSrc) {
-  superpowerDivMessage.innerText = content;
-  gif.classList = 'gif';
-  gif.src = gifSrc;
-  messageDiv.append(superpowerDivMessage, gif);
+// function displayMessage(content, gifSrc) {
+//   superpowerDivMessage.innerText = content;
+//   gif.classList = 'gif';
+//   gif.src = gifSrc;
+//   messageDiv.append(superpowerDivMessage, gif);
+// }
+
+displayMessage() {
+
+const helloMessage = document.querySelector('.hello-msg');
+const notFindMessage = document.querySelector('.not-find-msg');
+const powerMessage = document.querySelector('.powerstarts-msg');
+const saveMessage = document.querySelector('.saved-msg');
+const likeMessage = document.querySelector('.like-msg');
+const deleteMessage = document.querySelector('.good-bye');
+
 }
+
+
 
 //---------------------------------
 // search div
@@ -208,23 +222,26 @@ function makeCardSuperhero(superhero) {
           body: JSON.stringify(object),
         })
           .then((response) => response.json())
-          .then(getSavedCard())
+          // render Card Hero in saved section
+          .then(renderHero(object))
+          // remove Card Hero in search section
           .then(cardSuperheroDiv.remove())
           .then(() => {
             if ((saveMessage.style.display = 'block')) {
               saveMessage.style.display = 'none';
             }
           })
-          // .then(renderHero(object))
           .catch(function handleError(error) {
             console.log('there was an error posting the data');
             console.error(error);
           })
       );
     });
+
+    // const newHeroCard = document.createElement('div')
+    // newHeroCard.innerHTML = object
+    // savedCardContainer
   });
-
-
 
   // -----------------------------
   // appending elements to body
@@ -395,6 +412,7 @@ function renderHero(hero) {
     form,
     deleteButton
   );
+
   savedCardContainer.append(br, br, br, savedCardSuperhero);
 
   deleteButton.addEventListener('click', function (event) {
@@ -502,7 +520,8 @@ function helloUserMessage() {
 // invoke the master function
 //------------------------------
 function unit() {
-  // helloUserMessage()
+  helloUserMessage()
+  displayMessage()
   makeDivForSearching();
   getSearchRequest();
   getSavedCard();
