@@ -104,16 +104,16 @@ saveButton.innerText = 'Save Card';
 //   messageDiv.append(superpowerDivMessage, gif);
 // }
 
-displayMessage() {
+// displayMessage() {
 
-const helloMessage = document.querySelector('.hello-msg');
-const notFindMessage = document.querySelector('.not-find-msg');
-const powerMessage = document.querySelector('.powerstarts-msg');
-const saveMessage = document.querySelector('.saved-msg');
-const likeMessage = document.querySelector('.like-msg');
-const deleteMessage = document.querySelector('.good-bye');
+// const helloMessage = document.querySelector('.hello-msg');
+// const notFindMessage = document.querySelector('.not-find-msg');
+// const powerMessage = document.querySelector('.powerstarts-msg');
+// const saveMessage = document.querySelector('.saved-msg');
+// const likeMessage = document.querySelector('.like-msg');
+// const deleteMessage = document.querySelector('.good-bye');
 
-}
+// }
 
 
 
