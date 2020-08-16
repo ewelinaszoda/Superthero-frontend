@@ -251,6 +251,7 @@ h1 {
     text-align: center;
     border: 2px solid black;
     border-radius: 2%;
+    margin: 20px 0;
   }
   
   .card li {
@@ -284,4 +285,5 @@ h1 {
   
   .saved-card {
     flex: 1; 
+    margin: 20px;
   }

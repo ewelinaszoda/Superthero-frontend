@@ -38,21 +38,14 @@ const proxyURL = 'https://cors-anywhere.herokuapp.com/';
 const br = document.createElement('br');
 const hr = document.createElement('hr');
 
+let heros = [];
+
 const header = document.querySelector('#header');
 const searchDiv = document.querySelector('#search-div');
 const messagesDiv = document.querySelector('#messages-div');
-const card = document.querySelector('#card');
-const savedCardDiv = document.querySelector('#saved-cards')
-const savedCardTitle = document.createElement('div');
-savedCardTitle.id = '#saved-title'
+
 const savedCardContainer = document.createElement('div');
 savedCardContainer.id = '#saved-container'
-
-savedCardDiv.append(hr, savedCardTitle, savedCardContainer)
-
-const h2 = document.createElement('h2');
-h2.innerText = 'SAVED CARD';
-savedCardTitle.append(h2);
 
 const superpowerDivMessage = document.createElement('div');
 superpowerDivMessage.classList.add('message-div-superpower');
@@ -74,8 +67,8 @@ messageDiv.classList = 'message-div';
 const superpowerDiv = document.createElement('div');
 superpowerDiv.classList = 'superpower-div';
 
-const cardSuperheroDiv = document.createElement('div');
-cardSuperheroDiv.classList = 'card';
+// const cardSuperheroDiv = document.createElement('div');
+// cardSuperheroDiv.classList = 'card';
 
 const gif = document.createElement('img');
 
@@ -83,11 +76,11 @@ const gif = document.createElement('img');
 // savedCardSuperhero.classList.add('card');
 // savedCardSuperhero.classList.add('saved-card');
 
-savedCardContainer.append(savedCardSuperhero);
+// savedCardContainer.append(savedCardSuperhero);
 
-const saveButton = document.createElement('button');
-saveButton.classList.add('btn-save');
-saveButton.innerText = 'Save Card';
+// const saveButton = document.createElement('button');
+// saveButton.classList.add('btn-save');
+// saveButton.innerText = 'Save Card';
 
 //------------------------------------
 // message section
@@ -126,8 +119,9 @@ function makeDivForSearching(userInput) {
     // notFindMessage.style.display = 'none';
     const userInput = event.target.previousSibling.value;
     // debugger
+    input.value = "";
     getSearchRequest(userInput);
-
+  
     // .then((userInput) => userInput = " ")
     //QUESTION 1 THAT IT NOT WORKING !!!!!!!!
     // (userInput.reset());
@@ -148,6 +142,9 @@ function makeCardSuperhero(superhero) {
   h1.innerText = superhero.results[0].name;
 
   img.src = superhero.results[0].image.url;
+  
+  const cardSuperheroDiv = document.createElement('div');
+  cardSuperheroDiv.classList = 'card';
 
   cardSuperheroDiv.append(h1, img);
   displaySuperpowerMessage();
@@ -155,6 +152,8 @@ function makeCardSuperhero(superhero) {
   // click event on the superhero's image 
 
   img.addEventListener('click', function (event) {
+  	
+  	const card = document.querySelector('#card');
 
     const statsUl = document.createElement('ul');
     statsUl.class = 'info-ul';
@@ -171,21 +170,34 @@ function makeCardSuperhero(superhero) {
     const stats4Li = document.createElement('li');
     stats4Li.innerText = `Power: ${superhero.results[0].powerstats.power}`;
 
+    const message = document.createElement('div');
+    message.innerText = "This hero is already saved.\n You'll find him in the saved cards section!";
+    
+    const saveButton = document.createElement('button');
+    saveButton.classList.add('btn-save');
+    saveButton.innerText = 'Save Card';
+    
     statsUl.append(stats1Li, stats2Li, stats3Li, stats4Li);
-
-    cardSuperheroDiv.append(statsUl, saveButton);
+    
+    let names = heros.map(  hero => hero.name );
+    if (!names.includes(superhero.results[0].name)) {
+    	 cardSuperheroDiv.append(statsUl, saveButton);
+    } else {
+    	cardSuperheroDiv.append(message);
+    }
 
     //------------------------------------------------
     // save button
     //------------------------------------------------
-
+	
     saveButton.addEventListener('click', function (event) {
-      if ((saveMessage.style.display = 'none')) {
+      if ((saveMessage.style.display === 'none')) {
         saveMessage.style.display = 'block';
         likeMessage.style.display = 'none';
         notFindMessage.style.display = 'none';
         helloMessage.style.display = 'none';
         powerMessage.style.display = 'none';
+        deleteMessage.style.display = 'none';
       }
 
       const object = {
@@ -197,8 +209,9 @@ function makeCardSuperhero(superhero) {
         power: superhero.results[0].powerstats.power,
         likes: 0,
       };
-  
-      // return (
+
+	console.log("saved button pressed");
+//       return (
         fetch(BASE_URL + '/heros', {
           method: 'POST',
           headers: {
@@ -208,23 +221,21 @@ function makeCardSuperhero(superhero) {
           body: JSON.stringify(object),
         })
           .then((response) => response.json())
-          .then(() => getSavedCard())
-          // .then(cardSuperheroDiv.remove())
-          // .then(() => {
-          //   if ((saveMessage.style.display = 'block')) {
-          //     saveMessage.style.display = 'none';
-          //   }
-          // })
+           .then(() => getSavedCard())
+          .then(cardSuperheroDiv.remove())
+          .then(() => {
+            if ((saveMessage.style.display === 'block')) {
+              saveMessage.style.display = 'none';
+            }
+          })
           // .then(renderHero(object))
           .catch(function handleError(error) {
             console.log('there was an error posting the data');
             console.error(error);
           })
-      // );
+//       );
     });
   });
-
-
 
   // -----------------------------
   // appending elements to body
@@ -232,6 +243,7 @@ function makeCardSuperhero(superhero) {
   cardSuperheroDiv.append(br, superpowerDiv, br);
 
   messagesDiv.append(messageDiv);
+  card.innerHTML = "";
   card.append(cardSuperheroDiv);
 
   // !!!! BUG CHANGE THE WAY TO DISPLAY THE USER MESSAGES
@@ -240,6 +252,7 @@ function makeCardSuperhero(superhero) {
       superpowerDivMessage.innerText =
         "To see more superpower of Superhero, click on the superhero's sign on the costume!";
       powerMessage.style.display = 'block';
+      deleteMessage.style.display = 'none';
       superpowerDivMessage.innerText = " "
       messageDiv.append(superpowerDivMessage);
     }, 2000);
@@ -251,16 +264,28 @@ function makeCardSuperhero(superhero) {
 }
 
 function getSavedCard() {
+console.log("getSavedCard() called");
   return fetch(BASE_URL + '/heros')
     .then((response) => response.json())
-    .then((heros) =>
-      heros.forEach(function (hero) {
-        renderHero(hero);
-      })
+    .then((herosResponse) =>
+    	renderHeros(herosResponse)
     );
 }
 
+function renderHeros(herosResponse) {
+   heros = herosResponse
+	console.log("getSavedCard()  heros response: "+ JSON.stringify(heros))
+	savedCardContainer.innerHTML = "";
+      heros.forEach(function (hero) {
+        renderHero(hero);
+      });
+}
+
 function renderHero(hero) {
+console.log("renderHero() called");
+  const savedCardSuperhero = document.createElement('div');
+  savedCardSuperhero.classList.add('card');
+  savedCardSuperhero.classList.add('saved-card');
 
   const h1 = document.createElement('h1');
   h1.innerText = hero.name;
@@ -284,7 +309,7 @@ function renderHero(hero) {
   const stats4Li = document.createElement('li');
   stats4Li.innerText = `Power: ${hero.power}`;
 
-  statsUl.append(br, stats1Li, stats2Li, stats3Li, stats4Li);
+  statsUl.append(stats1Li, stats2Li, stats3Li, stats4Li);
 
   //-------------------
   // like section
@@ -306,10 +331,11 @@ function renderHero(hero) {
   likeButton.addEventListener('click', function (event) {
 
     // find another way to display that messages!!!!!!!!!!!
-    if ((likeMessage.style.display = 'none')) {
+    if ((likeMessage.style.display === 'none')) {
       likeMessage.style.display = 'flex';
       notFindMessage.style.display = 'none';
       helloMessage.style.display = 'none';
+      deleteMessage.style.display = 'none';
     }
 
     hero.likes = hero.likes + 1;
@@ -345,7 +371,7 @@ function renderHero(hero) {
   input.placeholder = 'Add a comment...';
 
   form.addEventListener('submit', function (event) {
-    if ((likeMessage.style.display = 'flex')) {
+    if ((likeMessage.style.display === 'flex')) {
       likeMessage.style.display = 'none';
     }
     event.preventDefault();
@@ -395,14 +421,14 @@ function renderHero(hero) {
     form,
     deleteButton
   );
-  savedCardContainer.append(br, br, br, savedCardSuperhero);
+  savedCardContainer.append(savedCardSuperhero);
 
   deleteButton.addEventListener('click', function (event) {
 
     deleteSuperhero(hero);
     savedCardSuperhero.remove();
 
-    if ((deleteMessage.style.display = 'none')) {
+    if ((deleteMessage.style.display === 'none')) {
       deleteMessage.style.display = 'flex';
       likeMessage.style.display = 'none';
       helloMessage.style.display = 'none';
@@ -454,6 +480,7 @@ function getSearchRequest(userInput) {
       .then((response) => response.json())
       // .then(function displayMessage('To see superpower of Superhero, click on the superhero sign on the costume!', "https://giphy.com/gifs/foxhomeent-kwCLw42hH2cxvIywIi"))
       .then((superhero) => {
+      	helloMessage.style.display = 'none';
         if (superhero.response === 'error') {
           notFindMessage.style.display = 'block';
         } else {
@@ -477,8 +504,11 @@ function getSearchRequest(userInput) {
 }
 
 function helloUserMessage() {
-  if (helloMessage.style.display = 'block') {
-    notFindMessage.style.display = 'none'
+  console.log(helloMessage.style.display);
+  if (helloMessage.style.display === 'none') {
+    helloMessage.style.display = 'block';
+    deleteMessage.style.display = 'none';
+//     notFindMessage.style.display = 'none';
   };
 }
 
@@ -498,13 +528,25 @@ function helloUserMessage() {
 //   helloMessage.style.display = 'none';
 // }
 
+function createSavedSection() {
+	const savedCardDiv = document.querySelector('#saved-cards')
+	const savedCardTitle = document.createElement('div');
+	savedCardTitle.id = '#saved-title'
+	savedCardDiv.append(hr, savedCardTitle, savedCardContainer)
+	
+	const h2 = document.createElement('h2');
+	h2.innerText = 'SAVED CARD';
+	savedCardTitle.append(h2);
+}
+
 //-----------------------------
 // invoke the master function
 //------------------------------
+
 function unit() {
-  // helloUserMessage()
+   helloUserMessage();
+  createSavedSection();
   makeDivForSearching();
-  getSearchRequest();
   getSavedCard();
 }
 
