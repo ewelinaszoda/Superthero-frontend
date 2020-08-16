@@ -1,40 +1,14 @@
-// Things to fix !!!
-
-// 1. When is none saved card in the section SAVED CARD is weird square
-
-// 2. After Click Save card, the card should appear on the saved section, instead you can 
-// more cards which should have not been seen there, after refresh all is good
-
-//3. When search second time, the card is displayed wrong way, up side down( name)
-
-// 3. Fix the message for the user when the card has been saved, likes, comments or deleted. 
-// - I used hacky way if conditional, what it is not working well 
-// If the user wants to save the card what exist in saved container, message and do not let the user to do it 
-// - hello message should work 
-// - good bye message should work 
-// - not find superhero should work 
-// - save card message should work 
-// - like card message should work 
-// - delete card message should work 
-// - good-bye message should work
-
-// 4. How to reset search input and comment input after post data
-
-// 5. After deleted the card, the rest of saved cards should appears on the page 
-
-// 6.Styling
-// - saved card in the row
-
 //-----------------------------
 // const
 //-----------------------------
 
 const BASE_URL = 'http://localhost:3000'
 
-const body = document.querySelector('body');
 SEARCH_URL = 'https://superheroapi.com/api/3111268965575899/search/';
 const proxyURL = 'https://cors-anywhere.herokuapp.com/';
 
+
+const body = document.querySelector('body');
 const br = document.createElement('br');
 const hr = document.createElement('hr');
 
@@ -52,7 +26,6 @@ superpowerDivMessage.classList.add('message-div-superpower');
 
 const likeMessage = document.querySelector('.like-msg');
 const saveMessage = document.querySelector('.saved-msg');
-
 const powerMessage = document.querySelector('.powerstarts-msg');
 const helloMessage = document.querySelector('.hello-msg');
 const notFindMessage = document.querySelector('.not-find-msg');
@@ -67,37 +40,10 @@ messageDiv.classList = 'message-div';
 const superpowerDiv = document.createElement('div');
 superpowerDiv.classList = 'superpower-div';
 
-// const cardSuperheroDiv = document.createElement('div');
-// cardSuperheroDiv.classList = 'card';
-
 const gif = document.createElement('img');
 
-// const savedCardSuperhero = document.createElement('div');
-// savedCardSuperhero.classList.add('card');
-// savedCardSuperhero.classList.add('saved-card');
-
-// savedCardContainer.append(savedCardSuperhero);
-
-// const saveButton = document.createElement('button');
-// saveButton.classList.add('btn-save');
-// saveButton.innerText = 'Save Card';
-
-//------------------------------------
-// message section
-//------------------------------------
-
-// !!!! NEEDS TO BE FIXED PLUS CONDITIONAL IF THAT MESSAGE DISPLAY NONE AND SO ON!!!!!!
-// gif.src = "https://giphy.com/gifs/reaction-mood-57ZvMMkuBIVMlU88Yh"
-
-function displayMessage(content, gifSrc) {
-  superpowerDivMessage.innerText = content;
-  gif.classList = 'gif';
-  gif.src = gifSrc;
-  messageDiv.append(superpowerDivMessage, gif);
-}
-
 //---------------------------------
-// search div
+// make search div
 //-------------------------------
 
 function makeDivForSearching(userInput) {
@@ -113,19 +59,9 @@ function makeDivForSearching(userInput) {
   searchButton.innerText = 'Search';
 
   searchButton.addEventListener('click', (event) => {
-
-    // !!!! NEEDS TO BE FIXED PLUS CONDITIONAL IF THAT MESSAGE DISPLAY NONE AND SO ON!!!!!!
-    // helloMessage.style.display = 'none';
-    // notFindMessage.style.display = 'none';
     const userInput = event.target.previousSibling.value;
-    // debugger
     input.value = "";
     getSearchRequest(userInput);
-  
-    // .then((userInput) => userInput = " ")
-    //QUESTION 1 THAT IT NOT WORKING !!!!!!!!
-    // (userInput.reset());
-    //   console.log('ioooiio');
   });
 
   inputDiv.append(input, searchButton);
@@ -149,12 +85,10 @@ function makeCardSuperhero(superhero) {
   cardSuperheroDiv.append(h1, img);
   displaySuperpowerMessage();
 
-  // click event on the superhero's image 
-
   img.addEventListener('click', function (event) {
   	
-  	const card = document.querySelector('#card');
-
+    const card = document.querySelector('#card');
+    
     const statsUl = document.createElement('ul');
     statsUl.class = 'info-ul';
 
@@ -179,7 +113,8 @@ function makeCardSuperhero(superhero) {
     
     statsUl.append(stats1Li, stats2Li, stats3Li, stats4Li);
     
-    let names = heros.map(  hero => hero.name );
+    // check of the search card in already saved
+    let names = heros.map( hero => hero.name );
     if (!names.includes(superhero.results[0].name)) {
     	 cardSuperheroDiv.append(statsUl, saveButton);
     } else {
@@ -210,7 +145,7 @@ function makeCardSuperhero(superhero) {
         likes: 0,
       };
 
-	console.log("saved button pressed");
+	// console.log("saved button pressed");
 
         fetch(BASE_URL + '/heros', {
           method: 'POST',
@@ -228,12 +163,10 @@ function makeCardSuperhero(superhero) {
               saveMessage.style.display = 'none';
             }
           })
-          // .then(renderHero(object))
           .catch(function handleError(error) {
             console.log('there was an error posting the data');
             console.error(error);
           })
-//       );
     });
   });
 
@@ -246,7 +179,6 @@ function makeCardSuperhero(superhero) {
   card.innerHTML = "";
   card.append(cardSuperheroDiv);
 
-  // !!!! BUG CHANGE THE WAY TO DISPLAY THE USER MESSAGES
   function displaySuperpowerMessage() {
     setTimeout(function createDivForSuperpower() {
       superpowerDivMessage.innerText =
@@ -256,12 +188,13 @@ function makeCardSuperhero(superhero) {
       superpowerDivMessage.innerText = " "
       messageDiv.append(superpowerDivMessage);
     }, 2000);
-    //QUESTION 2 HOW TO DISSAPPEAR
-    // superpowerDivMessage.innerText = " "
-    // return messageDiv.remove()
   };
   img.disabled = true;
 }
+
+//------------------
+// get saved card 
+//-----------------
 
 function getSavedCard() {
 console.log("getSavedCard() called");
@@ -271,6 +204,10 @@ console.log("getSavedCard() called");
     	renderHeros(herosResponse)
     );
 }
+
+//------------------
+// render Heros
+//-----------------
 
 function renderHeros(herosResponse) {
    heros = herosResponse
@@ -330,7 +267,6 @@ console.log("renderHero() called");
 
   likeButton.addEventListener('click', function (event) {
 
-    // find another way to display that messages!!!!!!!!!!!
     if ((likeMessage.style.display === 'none')) {
       likeMessage.style.display = 'flex';
       notFindMessage.style.display = 'none';
@@ -343,7 +279,6 @@ console.log("renderHero() called");
       id: hero.id,
       likes: hero.likes
     });
-
     span.innerText = `${hero.likes} likes`;
   });
 
@@ -442,7 +377,6 @@ console.log("renderHero() called");
 //------------------------
 
 function patchLikes(hero) {
-  // debugger;
   return (
     fetch(BASE_URL + `/heros/${hero.id}`, {
       method: 'PATCH',
@@ -453,7 +387,6 @@ function patchLikes(hero) {
       body: JSON.stringify(hero),
     })
       .then((response) => response.json())
-      // .then(getSavedCard())
       .catch(function handleError(error) {
         console.log('there was an error patching the data');
         console.error(error);
@@ -472,14 +405,13 @@ function deleteSuperhero(hero) {
 }
 
 //------------------------------
-// functions
+// search request
 //------------------------------
 
 function getSearchRequest(userInput) {
   return (
     fetch(proxyURL + SEARCH_URL + `${userInput}`)
       .then((response) => response.json())
-      // .then(function displayMessage('To see superpower of Superhero, click on the superhero sign on the costume!', "https://giphy.com/gifs/foxhomeent-kwCLw42hH2cxvIywIi"))
       .then((superhero) => {
       	helloMessage.style.display = 'none';
         if (superhero.response === 'error') {
@@ -489,18 +421,6 @@ function getSearchRequest(userInput) {
           makeCardSuperhero(superhero);
         }
       })
-    // .then(displaySuperpowerMessage())
-    // .catch(function handleError(error) {
-    //   if (error) {
-    //     notFindMessage.style.display = 'block';
-    //   } else {
-    //     notFindMessage.style.display = 'none';
-    //   }
-    //   // alert(
-    //   //   "That superhero doesn't exist at our database. Let's create that one!"
-    //   // );
-    //   console.error(error);
-    // })
   );
 }
 
@@ -509,25 +429,9 @@ function helloUserMessage() {
   if (helloMessage.style.display === 'none') {
     helloMessage.style.display = 'block';
     deleteMessage.style.display = 'none';
-//     notFindMessage.style.display = 'none';
   };
 }
 
-// function notFindHeroMessage() {
-//   if (helloMessage.style.display = 'none');
-//   notFindMessage.style.display = 'block';
-// }
-
-// function deleteMessage() {
-
-// }
-
-
-// if ((deleteMessage.style.display = 'none')) {
-//   deleteMessage.style.display = 'flex';
-//   likeMessage.style.display = 'none';
-//   helloMessage.style.display = 'none';
-// }
 
 function createSavedSection() {
 	const savedCardDiv = document.querySelector('#saved-cards')
@@ -545,21 +449,10 @@ function createSavedSection() {
 //------------------------------
 
 function unit() {
-   helloUserMessage();
+  helloUserMessage();
   createSavedSection();
   makeDivForSearching();
   getSavedCard();
 }
 
 unit();
-
-
-//ERRORS !!!! heroID hero_id 
-
-// NOT WORKING THE LINE 440 
-
-// comment backend 
-
-// during save card is showing wrong card - Frontend ????
-
-// remove card - frontend 
