@@ -46,7 +46,7 @@ const savedCardDiv = document.querySelector('#saved-cards')
 const savedCardTitle = document.createElement('div');
 savedCardTitle.id = '#saved-title'
 const savedCardContainer = document.createElement('div');
-savedCardTitle.id = '#saved-container'
+savedCardContainer.id = '#saved-container'
 
 savedCardDiv.append(hr, savedCardTitle, savedCardContainer)
 
@@ -79,9 +79,9 @@ cardSuperheroDiv.classList = 'card';
 
 const gif = document.createElement('img');
 
-const savedCardSuperhero = document.createElement('div');
-savedCardSuperhero.classList.add('card');
-savedCardSuperhero.classList.add('saved-card');
+// const savedCardSuperhero = document.createElement('div');
+// savedCardSuperhero.classList.add('card');
+// savedCardSuperhero.classList.add('saved-card');
 
 savedCardContainer.append(savedCardSuperhero);
 
@@ -197,8 +197,8 @@ function makeCardSuperhero(superhero) {
         power: superhero.results[0].powerstats.power,
         likes: 0,
       };
-
-      return (
+  
+      // return (
         fetch(BASE_URL + '/heros', {
           method: 'POST',
           headers: {
@@ -208,19 +208,19 @@ function makeCardSuperhero(superhero) {
           body: JSON.stringify(object),
         })
           .then((response) => response.json())
-          .then(getSavedCard())
-          .then(cardSuperheroDiv.remove())
-          .then(() => {
-            if ((saveMessage.style.display = 'block')) {
-              saveMessage.style.display = 'none';
-            }
-          })
+          .then(() => getSavedCard())
+          // .then(cardSuperheroDiv.remove())
+          // .then(() => {
+          //   if ((saveMessage.style.display = 'block')) {
+          //     saveMessage.style.display = 'none';
+          //   }
+          // })
           // .then(renderHero(object))
           .catch(function handleError(error) {
             console.log('there was an error posting the data');
             console.error(error);
           })
-      );
+      // );
     });
   });
 
