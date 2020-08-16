@@ -211,7 +211,7 @@ function makeCardSuperhero(superhero) {
       };
 
 	console.log("saved button pressed");
-//       return (
+
         fetch(BASE_URL + '/heros', {
           method: 'POST',
           headers: {
@@ -401,6 +401,7 @@ console.log("renderHero() called");
     li.innerText = newComment.content;
     commentsUl.append(li);
 
+    input.value = "";
   });
 
   const commentButton = document.createElement('button');
