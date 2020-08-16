@@ -7,7 +7,6 @@ const BASE_URL = 'http://localhost:3000'
 SEARCH_URL = 'https://superheroapi.com/api/3111268965575899/search/';
 const proxyURL = 'https://cors-anywhere.herokuapp.com/';
 
-
 const body = document.querySelector('body');
 const br = document.createElement('br');
 const hr = document.createElement('hr');
@@ -25,7 +24,8 @@ const superpowerDivMessage = document.createElement('div');
 superpowerDivMessage.classList.add('message-div-superpower');
 
 const likeMessage = document.querySelector('.like-msg');
-const saveMessage = document.querySelector('.saved-msg');
+const savedMessage = document.querySelector('.save-msg');
+// const saveMessage = document.querySelector('.saved-msg');
 const powerMessage = document.querySelector('.powerstarts-msg');
 const helloMessage = document.querySelector('.hello-msg');
 const notFindMessage = document.querySelector('.not-find-msg');
@@ -66,6 +66,17 @@ function makeDivForSearching(userInput) {
 
   inputDiv.append(input, searchButton);
   searchDiv.append(inputDiv);
+}
+
+function createSavedSection() {
+	const savedCardDiv = document.querySelector('#saved-cards')
+	const savedCardTitle = document.createElement('div');
+	savedCardTitle.id = '#saved-title'
+	savedCardDiv.append(hr, savedCardTitle, savedCardContainer)
+	
+	const h2 = document.createElement('h2');
+	h2.innerText = 'SAVED CARD';
+	savedCardTitle.append(h2);
 }
 
 //------------------------------
@@ -125,9 +136,9 @@ function makeCardSuperhero(superhero) {
     // save button
     //------------------------------------------------
 	
-    saveButton.addEventListener('click', function (event) {
-      if ((saveMessage.style.display === 'none')) {
-        saveMessage.style.display = 'block';
+    saveButton.addEventListener('click', function () {
+      if (savedMessage.style.display === 'none') {
+        savedMessage.style.display = 'block';
         likeMessage.style.display = 'none';
         notFindMessage.style.display = 'none';
         helloMessage.style.display = 'none';
@@ -145,8 +156,6 @@ function makeCardSuperhero(superhero) {
         likes: 0,
       };
 
-	// console.log("saved button pressed");
-
         fetch(BASE_URL + '/heros', {
           method: 'POST',
           headers: {
@@ -158,11 +167,6 @@ function makeCardSuperhero(superhero) {
           .then((response) => response.json())
            .then(() => getSavedCard())
           .then(cardSuperheroDiv.remove())
-          .then(() => {
-            if ((saveMessage.style.display === 'block')) {
-              saveMessage.style.display = 'none';
-            }
-          })
           .catch(function handleError(error) {
             console.log('there was an error posting the data');
             console.error(error);
@@ -185,7 +189,9 @@ function makeCardSuperhero(superhero) {
         "To see more superpower of Superhero, click on the superhero's sign on the costume!";
       powerMessage.style.display = 'block';
       deleteMessage.style.display = 'none';
-      superpowerDivMessage.innerText = " "
+      notFindMessage.style.display = "none";
+      superpowerDivMessage.innerText = " ";
+      savedMessage.style.display = 'none';
       messageDiv.append(superpowerDivMessage);
     }, 2000);
   };
@@ -197,7 +203,6 @@ function makeCardSuperhero(superhero) {
 //-----------------
 
 function getSavedCard() {
-console.log("getSavedCard() called");
   return fetch(BASE_URL + '/heros')
     .then((response) => response.json())
     .then((herosResponse) =>
@@ -210,8 +215,8 @@ console.log("getSavedCard() called");
 //-----------------
 
 function renderHeros(herosResponse) {
-   heros = herosResponse
-	console.log("getSavedCard()  heros response: "+ JSON.stringify(heros))
+  heros = herosResponse
+	// console.log("getSavedCard()  heros response: "+ JSON.stringify(heros))
 	savedCardContainer.innerHTML = "";
       heros.forEach(function (hero) {
         renderHero(hero);
@@ -219,7 +224,6 @@ function renderHeros(herosResponse) {
 }
 
 function renderHero(hero) {
-console.log("renderHero() called");
   const savedCardSuperhero = document.createElement('div');
   savedCardSuperhero.classList.add('card');
   savedCardSuperhero.classList.add('saved-card');
@@ -265,13 +269,15 @@ console.log("renderHero() called");
 
   likeDiv.append(span, likeButton);
 
-  likeButton.addEventListener('click', function (event) {
+  likeButton.addEventListener('click', function () {
 
     if ((likeMessage.style.display === 'none')) {
-      likeMessage.style.display = 'flex';
+      likeMessage.style.display = "block";
       notFindMessage.style.display = 'none';
       helloMessage.style.display = 'none';
       deleteMessage.style.display = 'none';
+      powerMessage.style.display = 'none';
+      savedMessage.style.display = 'none';
     }
 
     hero.likes = hero.likes + 1;
@@ -306,7 +312,7 @@ console.log("renderHero() called");
   input.placeholder = 'Add a comment...';
 
   form.addEventListener('submit', function (event) {
-    if ((likeMessage.style.display === 'flex')) {
+    if ((likeMessage.style.display === 'block')) {
       likeMessage.style.display = 'none';
     }
     event.preventDefault();
@@ -365,9 +371,12 @@ console.log("renderHero() called");
     savedCardSuperhero.remove();
 
     if ((deleteMessage.style.display === 'none')) {
-      deleteMessage.style.display = 'flex';
+      deleteMessage.style.display = 'block';
       likeMessage.style.display = 'none';
       helloMessage.style.display = 'none';
+      notFindMessage.style.display = "none";
+      powerMessage.style.display = 'none';
+      savedMessage.style.display = 'none';
     }
   });
 }
@@ -404,6 +413,8 @@ function deleteSuperhero(hero) {
   }).then((response) => response.json);
 }
 
+// <!-- <div class="good-msg" style="display:none;"><iframe src="https://giphy.com/embed/RLW9YEaSBfBMt79fm4" width="480" height="250" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p style="padding:30px;">You have saved the card at your Vault</p></div> -->
+
 //------------------------------
 // search request
 //------------------------------
@@ -416,6 +427,7 @@ function getSearchRequest(userInput) {
       	helloMessage.style.display = 'none';
         if (superhero.response === 'error') {
           notFindMessage.style.display = 'block';
+          savedMessage.style.display = 'none';
         } else {
           notFindMessage.style.display = 'none';
           makeCardSuperhero(superhero);
@@ -425,23 +437,11 @@ function getSearchRequest(userInput) {
 }
 
 function helloUserMessage() {
-  console.log(helloMessage.style.display);
   if (helloMessage.style.display === 'none') {
     helloMessage.style.display = 'block';
     deleteMessage.style.display = 'none';
+    savedMessage.style.display = 'none';
   };
-}
-
-
-function createSavedSection() {
-	const savedCardDiv = document.querySelector('#saved-cards')
-	const savedCardTitle = document.createElement('div');
-	savedCardTitle.id = '#saved-title'
-	savedCardDiv.append(hr, savedCardTitle, savedCardContainer)
-	
-	const h2 = document.createElement('h2');
-	h2.innerText = 'SAVED CARD';
-	savedCardTitle.append(h2);
 }
 
 //-----------------------------
