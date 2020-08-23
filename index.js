@@ -413,8 +413,6 @@ function deleteSuperhero(hero) {
   }).then((response) => response.json);
 }
 
-// <!-- <div class="good-msg" style="display:none;"><iframe src="https://giphy.com/embed/RLW9YEaSBfBMt79fm4" width="480" height="250" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p style="padding:30px;">You have saved the card at your Vault</p></div> -->
-
 //------------------------------
 // search request
 //------------------------------
